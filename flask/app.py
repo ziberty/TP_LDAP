@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import json
 
 app = Flask(__name__)
-filename = "ldap.json"
+filename = "../ldap.json"
 dataform = []
 
 @app.route('/', methods=["GET", "POST"])
