@@ -24,6 +24,11 @@ from twisted.python import log
 from ldaptor.inmemory import fromLDIFFile
 from ldaptor.interfaces import IConnectedLDAPEntry
 from ldaptor.protocols.ldap.ldapserver import LDAPServer
+from cryptography.fernet import Fernet
+
+key = Fernet.generate_key()
+fernet = Fernet(key)
+
 
 LDIF = b"""\
 dn: dc=org
@@ -99,6 +104,22 @@ class LDAPServerFactory(ServerFactory):
         proto.debug = self.debug
         proto.factory = self
         return proto
+
+def addLdapUser(cn, sn, email, userPassword, ou):
+    #cryptMsg = fernet.encrypt(testData.encode())
+    #decryptMsg = fernet.decrypt(cryptMsg).decode()
+
+    cn = fernet.encrypt(cn.encode())
+    userPassword = fernet.encrypt(userPassword.encode())
+
+    dnString = "\n\ndn: cn=" + str(cn) + ",ou=" + ou + ",dc=example,dc=org"
+    cnString = "\n cn: " + str(cn)
+    snString = "\n sn: " + sn
+    emailString = "\n email: " + email
+    userPasswordString = "\n userPassword: " + str(userPassword)
+    string = dnString + cnString + snString + emailString + userPasswordString
+    stringLDIF = LDIF + str.encode(string)
+    return stringLDIF
 
 
 if __name__ == "__main__":
