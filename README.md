@@ -66,3 +66,4 @@ Pour lancer l'interface graphique, faire la commande flask run dans le dossier f
 
 
 
+
