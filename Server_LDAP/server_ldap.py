@@ -1,18 +1,3 @@
-#import logging
-
-#from flask import Flask, abort, request, render_template, redirect, url_for
-
-#logging.basicConfig(level=logging.INFO)
-
-#app = Flask(__name__)
-
-
-#@app.route("/", methods=["GET"])
-#def home():
-#    vlilles = Vlille.query.order_by(Vlille.nom).offset(0).limit(20)
-
-#    return render_template("vlille.html", vlilles=vlilles)
-
 import sys
 import io
 
@@ -81,6 +66,12 @@ userPassword: eekretsay
 """
 
 
+
+
+
+
+
+
 class Tree:
     def __init__(self):
         global LDIF
@@ -146,3 +137,6 @@ if __name__ == "__main__":
     e = serverFromString(reactor, serverEndpointStr)
     d = e.listen(factory)
     reactor.run()
+
+
+
